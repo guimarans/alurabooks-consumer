@@ -1,0 +1,23 @@
+.corpoModalCadastro {
+    display: flex;
+    align-items: center;
+    padding-top: 32px;
+}
+
+.corpoModalCadastro form {
+    width: 500px;
+    max-width: 100%;
+}
+
+.corpoModalCadastro form .duas-colunas{
+    @media(min-width: 798px) {
+        display: grid;
+        grid-template-columns: 60% 1fr;
+        grid-gap: 1rem;
+    }
+}
+
+.corpoModalCadastro form .acoes {
+    margin-top: 20px;
+    text-align: center;
+}
