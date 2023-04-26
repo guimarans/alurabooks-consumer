@@ -8,27 +8,19 @@ const Pedidos = () => {
     const formatador = Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'})
     const [pedidos, setPedidos] = useState<IPedido[]>([])
 
-    const token = sessionStorage.getItem('token');
-
-    const cabecalho = {
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    }
-
-    useEffect(() => {    
-        http.get<IPedido[]>('http://localhost:8000/pedidos', cabecalho)
-            .then(resposta => setPedidos(resposta.data))
-            .catch(erro => console.error(erro))
-    }, []);
-
-    function excluir(pedido: IPedido): void {
-        http.delete(`http://localhost:8000/pedidos/${pedido.id}`, cabecalho)
+    const excluir = (pedido: IPedido): void => {
+        http.delete(`http://localhost:8000/pedidos/${pedido.id}`)
             .then(() => {
                 setPedidos(pedidos.filter(pedidoFiltro => pedidoFiltro.id != pedido.id))
             })
             .catch(erro => console.error(erro))
     }
+
+    useEffect(() => {    
+        http.get<IPedido[]>('http://localhost:8000/pedidos')
+            .then(resposta => setPedidos(resposta.data))
+            .catch(erro => console.error(erro))
+    }, []);
 
     return (
         <section className="pedidos">
