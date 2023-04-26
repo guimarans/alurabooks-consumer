@@ -4,17 +4,28 @@ import logo from './assets/logo.png'
 import usuario from './assets/usuario.svg'
 import './BarraNavegacao.css'
 import ModalCadastroUsuario from "componentes/ModalCadastroUsuario"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import ModalLoginUsuario from "componentes/ModalLoginUsuario"
+import { ICategoria } from "interfaces/ICategoria"
+import http from "../../http"
 
 const BarraNavegacao = () => {
 
     const [modalCadastroAberta, setModalCadastroAberta] = useState(false)
     const [modalLoginAberta, setModalLoginAberta] = useState(false)
 
+    const [categorias, setCategorias] = useState<ICategoria[]>([])
+
+    useEffect(() => {
+        http.get<ICategoria[]>('/categorias')
+            .then(resposta => setCategorias(resposta.data))
+            .catch(error => console.error(error))
+    }, [])
+
     const navigate = useNavigate();
 
     const token = sessionStorage.getItem('token');
+
     const [usuarioEstaLogado, setUsuarioEstaLogado] = useState<boolean>(token != null)
 
     const aoEfetuarLogin = () => {
@@ -40,31 +51,13 @@ const BarraNavegacao = () => {
                 <li>
                     <a href="#!"> Categorias </a>
                     <ul className="submenu">
-                        <li>
-                            <Link to="/">
-                                Frontend
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to="/">
-                                Programação
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to="/">
-                                Infraestrutura
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to="/">
-                                Business
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to="/">
-                                Design e UX
-                            </Link>
-                        </li>
+                        {categorias.map(categoria => (
+                            <li key={categoria.id}>
+                                <Link to={`/categorias/${categoria.slug}`}>
+                                    {categoria.nome}
+                                </Link>
+                            </li>
+                        ))}
                     </ul>
                 </li>
             </ul>
