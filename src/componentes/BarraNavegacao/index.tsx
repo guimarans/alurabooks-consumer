@@ -1,4 +1,4 @@
-import { Link, Navigate, useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import BotaoNavegacao from "../BotaoNavegacao"
 import logo from './assets/logo.png'
 import usuario from './assets/usuario.svg'
@@ -8,10 +8,11 @@ import { useState } from "react"
 import ModalLoginUsuario from "componentes/ModalLoginUsuario"
 
 const BarraNavegacao = () => {
-    const navigate = useNavigate();
 
     const [modalCadastroAberta, setModalCadastroAberta] = useState(false)
     const [modalLoginAberta, setModalLoginAberta] = useState(false)
+
+    const navigate = useNavigate();
 
     const token = sessionStorage.getItem('token');
     const [usuarioEstaLogado, setUsuarioEstaLogado] = useState<boolean>(token != null)
@@ -19,6 +20,12 @@ const BarraNavegacao = () => {
     const aoEfetuarLogin = () => {
         setModalLoginAberta(false)
         setUsuarioEstaLogado(true)
+    }
+
+    const efetuarLogout = () => {
+        setUsuarioEstaLogado(false)
+        sessionStorage.removeItem('token')
+        navigate('/')
     }
 
     return (
@@ -90,13 +97,24 @@ const BarraNavegacao = () => {
                     </li>
                 </>)}
                 {usuarioEstaLogado && (
-
-                    <BotaoNavegacao
-                        texto="Minha conta"
-                        textoAltSrc="Icone representando um usuário"
-                        imagemSrc={usuario}
-                        onClick={() => navigate("/minha-conta/pedidos")}
-                    />
+                    <>
+                        <li>
+                            <BotaoNavegacao
+                                texto="Minha conta"
+                                textoAltSrc="Icone representando um usuário"
+                                imagemSrc={usuario}
+                                onClick={() => navigate("/minha-conta/pedidos")}
+                            />
+                        </li>
+                        <li>
+                            <BotaoNavegacao
+                                texto="Logout"
+                                textoAltSrc="Icone representando um usuário"
+                                imagemSrc={usuario}
+                                onClick={efetuarLogout}
+                            />
+                        </li>
+                    </>
                 )}
             </ul>
         </nav>
