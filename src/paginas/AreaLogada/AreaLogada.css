@@ -2,6 +2,7 @@
     display: flex;
     width: 900px;
     max-width: 80%;
+    padding: 64px 0;
     margin: 0 auto;
     gap: 3rem;
 }
@@ -21,7 +22,7 @@
 }
 
 .AreaLogada .navegacao li {
-    border-bottom: 1px solid #0E3E61;
+    border-bottom: 1px solid  #C4C4C4;
 }
 .AreaLogada .navegacao li a {
     display: flex;
@@ -35,9 +36,11 @@
     box-sizing: border-box;
 }
 
-.AreaLogada .navegacao li.ativo a {
+.AreaLogada .navegacao li.ativo {
     font-weight: 700;
+    border-color: #0E3E61;
 }
+
 
 .AreaLogada .conteudo {
     flex-grow: 1;
