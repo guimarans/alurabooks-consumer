@@ -3,6 +3,7 @@ import imagemPrincipal from './assets/login.png';
 import './ModalLoginUsuario.css';
 import { FormEvent, useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 interface ModalLoginUsuarioProps {
     aberta: boolean
@@ -15,9 +16,9 @@ const ModalLoginUsuario = ({ aberta, aoFechar }: ModalLoginUsuarioProps) => {
 
     const aoSubmeterFormular = (evento: FormEvent<HTMLFormElement>) => {
         evento.preventDefault()
-        
+
         const usuario = {
-            email, 
+            email,
             senha
         }
 
@@ -26,12 +27,12 @@ const ModalLoginUsuario = ({ aberta, aoFechar }: ModalLoginUsuarioProps) => {
                 sessionStorage.setItem('token', resposta.data.access_token)
                 setEmail('')
                 setSenha('')
-                
+
                 alert('Usuário logado com sucesso!')
                 aoFechar()
             })
             .catch((erro) => {
-                if(erro?.response?.data?.message) {
+                if (erro?.response?.data?.message) {
                     alert(erro.response.data.message)
                 } else {
                     alert('Aconteceu um erro inesperado ao efetuar o login! Entre em contato com o suporte!');
@@ -64,8 +65,18 @@ const ModalLoginUsuario = ({ aberta, aoFechar }: ModalLoginUsuarioProps) => {
                         onChange={setSenha}
                         type="password"
                     />
-                    <footer className="acoes">
-                        <AbBotao texto="Cadastrar" />
+                    <footer>
+                        <div className='acoes'>
+                            <Link to="/">Esqueci minha senha</Link>
+                            <AbBotao texto="Fazer login" tamanho="pequeno" />
+                        </div>
+
+                        <hr />
+
+                        <div className='acoes'>
+                            <strong>Ainda não tem uma conta?</strong>
+                            <AbBotao texto='Criar conta' tamanho="pequeno" />
+                        </div>
                     </footer>
                 </form>
             </section>

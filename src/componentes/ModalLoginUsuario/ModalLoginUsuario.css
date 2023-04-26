@@ -9,7 +9,31 @@
     max-width: 100%;
 }
 
-.corpoModalLogin form .acoes {
-    margin-top: 48px;
-    text-align: center;
+.corpoModalLogin form footer hr {
+    border-color: #002f52;
+    margin: 48px 0 36px;
+}
+
+.corpoModalLogin form footer .acoes{
+    display: flex;
+    padding: 0 1rem;
+}
+
+.corpoModalLogin form footer .acoes a {
+    font-size: 16px;
+    color: #002f52;
+    font-weight: 400;
+    text-transform: inherit;
+    flex-grow: 1;
+}
+
+.corpoModalLogin form footer .acoes strong {
+    font-size: 20px;
+    color: #002f52;
+    font-weight: 700;    
+    flex-grow: 1;
+}
+
+.corpoModalLogin form footer .acoes button {
+    font-weight: 700;
 }
