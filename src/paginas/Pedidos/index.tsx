@@ -8,16 +8,28 @@ const Pedidos = () => {
     const formatador = Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'})
     const [pedidos, setPedidos] = useState<IPedido[]>([])
 
-    useEffect(() => {
-        const token = sessionStorage.getItem('token')
-        axios.get<IPedido[]>('http://localhost:8000/pedidos', {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        })
+    const token = sessionStorage.getItem('token');
+
+    const cabecalho = {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    }
+
+    useEffect(() => {    
+        axios.get<IPedido[]>('http://localhost:8000/pedidos', cabecalho)
             .then(resposta => setPedidos(resposta.data))
             .catch(erro => console.error(erro))
-    }, [])
+    }, []);
+
+    function excluir(pedido: IPedido): void {
+        axios.delete(`http://localhost:8000/pedidos/${pedido.id}`, cabecalho)
+            .then(() => {
+                setPedidos(pedidos.filter(pedidoFiltro => pedidoFiltro.id != pedido.id))
+            })
+            .catch(erro => console.error(erro))
+    }
+
     return (
         <section className="pedidos">
             <h1>Pedidos</h1>
@@ -29,7 +41,7 @@ const Pedidos = () => {
                         <li>Valor total: <strong>{formatador.format(pedido.total)}</strong></li>
                         <li>Entrega realizada em: <strong>{new Date(pedido.entrega).toLocaleDateString()}</strong></li>
                     </ul>
-
+                    <AbBotao tipo="secundario" tamanho="pequeno" texto="Excluir pedido" onClick={() => excluir(pedido)} />
                     <AbBotao tamanho="pequeno" texto="Detalhes" />
                 </div>
             ))}
