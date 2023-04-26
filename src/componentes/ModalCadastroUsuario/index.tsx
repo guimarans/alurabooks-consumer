@@ -2,7 +2,7 @@ import { AbBotao, AbCampoTexto, AbModal } from "alura-books-ds-guimarans"
 import { useState } from "react"
 import imagemPrincipal from './assets/login.png'
 import './ModalCadastroUsuario.css'
-import axios from "axios"
+import http from "../../http"
 
 interface ModalCadastroUsuarioProps {
     aberta: boolean
@@ -30,7 +30,7 @@ const ModalCadastroUsuario = ({aberta, aoFechar}: ModalCadastroUsuarioProps) => 
             complemento
         }
 
-        axios.post('http://localhost:8000/public/registrar', usuario)
+        http.post('/public/registrar', usuario)
             .then(() => {
                 alert('Usuário foi cadastrado com sucesso!')
 

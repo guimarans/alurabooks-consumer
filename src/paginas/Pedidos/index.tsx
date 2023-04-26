@@ -1,8 +1,8 @@
 import { AbBotao } from "alura-books-ds-guimarans";
-import axios from "axios";
-import './Pedidos.css';
 import { useEffect, useState } from "react";
 import { IPedido } from "interfaces/IPedido";
+import http from "../../http";
+import './Pedidos.css';
 
 const Pedidos = () => {
     const formatador = Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'})
@@ -17,13 +17,13 @@ const Pedidos = () => {
     }
 
     useEffect(() => {    
-        axios.get<IPedido[]>('http://localhost:8000/pedidos', cabecalho)
+        http.get<IPedido[]>('http://localhost:8000/pedidos', cabecalho)
             .then(resposta => setPedidos(resposta.data))
             .catch(erro => console.error(erro))
     }, []);
 
     function excluir(pedido: IPedido): void {
-        axios.delete(`http://localhost:8000/pedidos/${pedido.id}`, cabecalho)
+        http.delete(`http://localhost:8000/pedidos/${pedido.id}`, cabecalho)
             .then(() => {
                 setPedidos(pedidos.filter(pedidoFiltro => pedidoFiltro.id != pedido.id))
             })

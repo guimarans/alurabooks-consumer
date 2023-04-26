@@ -2,7 +2,7 @@ import { AbBotao, AbCampoTexto, AbModal } from 'alura-books-ds-guimarans';
 import imagemPrincipal from './assets/login.png';
 import './ModalLoginUsuario.css';
 import { FormEvent, useState } from 'react';
-import axios from 'axios';
+import http from '../../http';
 import { Link } from 'react-router-dom';
 
 interface ModalLoginUsuarioProps {
@@ -23,7 +23,7 @@ const ModalLoginUsuario = ({ aberta, aoFechar, aoEfetuarLogin }: ModalLoginUsuar
             senha
         }
 
-        axios.post('http://localhost:8000/public/login', usuario)
+        http.post('/public/login', usuario)
             .then((resposta) => {
                 sessionStorage.setItem('token', resposta.data.access_token)
                 setEmail('')
