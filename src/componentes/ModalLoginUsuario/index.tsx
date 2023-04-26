@@ -8,9 +8,10 @@ import { Link } from 'react-router-dom';
 interface ModalLoginUsuarioProps {
     aberta: boolean
     aoFechar: () => void
+    aoEfetuarLogin: () => void
 }
 
-const ModalLoginUsuario = ({ aberta, aoFechar }: ModalLoginUsuarioProps) => {
+const ModalLoginUsuario = ({ aberta, aoFechar, aoEfetuarLogin }: ModalLoginUsuarioProps) => {
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
 
@@ -27,8 +28,7 @@ const ModalLoginUsuario = ({ aberta, aoFechar }: ModalLoginUsuarioProps) => {
                 sessionStorage.setItem('token', resposta.data.access_token)
                 setEmail('')
                 setSenha('')
-
-                alert('Usuário logado com sucesso!')
+                aoEfetuarLogin()
                 aoFechar()
             })
             .catch((erro) => {
