@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link, Navigate, useNavigate } from "react-router-dom"
 import BotaoNavegacao from "../BotaoNavegacao"
 import logo from './assets/logo.png'
 import usuario from './assets/usuario.svg'
@@ -8,6 +8,7 @@ import { useState } from "react"
 import ModalLoginUsuario from "componentes/ModalLoginUsuario"
 
 const BarraNavegacao = () => {
+    const navigate = useNavigate();
 
     const [modalCadastroAberta, setModalCadastroAberta] = useState(false)
     const [modalLoginAberta, setModalLoginAberta] = useState(false)
@@ -89,11 +90,13 @@ const BarraNavegacao = () => {
                     </li>
                 </>)}
                 {usuarioEstaLogado && (
-                    <>
-                        <li>
-                            <Link to="/minha-conta/pedidos">Minha conta</Link>
-                        </li>
-                    </>
+
+                    <BotaoNavegacao
+                        texto="Minha conta"
+                        textoAltSrc="Icone representando um usuário"
+                        imagemSrc={usuario}
+                        onClick={() => navigate("/minha-conta/pedidos")}
+                    />
                 )}
             </ul>
         </nav>

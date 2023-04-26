@@ -11,6 +11,7 @@
 }
 
 .ab-navbar .navegacao {
+    text-transform: uppercase;
     flex-grow: 1;
 }
 
@@ -30,7 +31,6 @@
 
 
 .ab-navbar ul li a {
-    text-transform: uppercase;
     text-decoration: none;
     color: inherit;
 }
@@ -59,4 +59,8 @@
 .ab-navbar ul.acoes li:hover {
     background: #fff;
     color: #000;
+}
+
+.ab-navbar .acoes button {
+    font-size: 20px;
 }

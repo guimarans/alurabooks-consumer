@@ -1,6 +1,8 @@
 import { Route, Routes } from "react-router-dom"
+import AreaLogada from "../paginas/AreaLogada"
+import Home from "../paginas/Home"
 import PaginaBase from "../paginas/PaginaBase"
-import Home from '../paginas/Home'
+import Pedidos from "../paginas/Pedidos"
 
 
 const Rotas = () => {
@@ -8,6 +10,9 @@ const Rotas = () => {
     <Routes>
       <Route path='/' element={<PaginaBase />}>
         <Route path='/' element={<Home />} />
+        <Route path='/minha-conta' element={<AreaLogada />}>
+          <Route path="pedidos" element={<Pedidos />} />
+        </Route>
       </Route>
     </Routes>
   )
