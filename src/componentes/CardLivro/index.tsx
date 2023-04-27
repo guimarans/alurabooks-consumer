@@ -27,7 +27,7 @@ const CardLivro = ({ livro }: CardLivroProps) => {
                     A partir de: <strong>{formatador.format(obterValorMinimo(livro))}</strong>
                 </li>
             </ul>
-            <Link to={`/livro/${livro.slug}`} className="link-container">
+            <Link to={`/livros/${livro.slug}`} className="link-container">
                 <AbBotao texto="Comprar" />
             </Link>
         </div>
