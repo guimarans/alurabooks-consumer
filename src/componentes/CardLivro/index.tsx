@@ -3,6 +3,8 @@ import { ILivro } from "interfaces/iLivro";
 import { Link } from "react-router-dom";
 import { formatador } from "utils/formatador-moeda";
 
+import './CardLivro.css'
+
 interface CardLivroProps {
     livro: ILivro
 }

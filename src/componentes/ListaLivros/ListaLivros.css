@@ -1,0 +1,8 @@
+.ListaLivros {
+    display: flex;
+    max-width: 80%;
+    justify-content: space-around;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin: 24px auto;
+}

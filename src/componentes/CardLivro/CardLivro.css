@@ -10,13 +10,19 @@
 
 .livro img {
     max-width: 100%;
-    margin-bottom: 12px;
 }
 
 .livro ul {
     width: 100%;
 }
 
-.livro .link-container {
-    margin-top: 16px;
+.livros ul li {
+    display: block;
+    text-align: center;
+}
+
+.livro .link-container,
+.livro .link-container button{
+    width: 100%;
+    cursor: pointer;
 }
