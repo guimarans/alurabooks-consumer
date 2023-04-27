@@ -4,6 +4,7 @@ import { obterCategoriaPorSlug } from '../../http'
 import { useParams } from "react-router-dom";
 import Loader from "componentes/Loader";
 import { useQuery } from "@tanstack/react-query";
+import CardLivro from "componentes/CardLivro";
 
 const Categoria = () => { 
     const params = useParams()
