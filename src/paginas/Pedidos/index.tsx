@@ -11,7 +11,7 @@ const Pedidos = () => {
     const excluir = (pedido: IPedido): void => {
         http.delete(`http://localhost:8000/pedidos/${pedido.id}`)
             .then(() => {
-                setPedidos(pedidos.filter(pedidoFiltro => pedidoFiltro.id != pedido.id))
+                setPedidos(pedidos.filter(pedidoFiltro => pedidoFiltro.id !== pedido.id))
             })
             .catch(erro => console.error(erro))
     }
