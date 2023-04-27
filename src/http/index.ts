@@ -1,5 +1,6 @@
 import axios from "axios";
 import { ICategoria } from "interfaces/ICategoria";
+import { ILivro } from "interfaces/iLivro";
 
 const http = axios.create({
     baseURL: 'http://localhost:8000',
@@ -12,7 +13,7 @@ const http = axios.create({
 http.interceptors.request.use(config => {
     const token = sessionStorage.getItem('token')
 
-    if(token && config.headers) {
+    if (token && config.headers) {
         config.headers.Authorization = `Bearer ${token}`
     }
     return config
@@ -25,9 +26,23 @@ export default http
 
 export const obterCategoriaPorSlug = async (slug: string) => {
     const resposta = await http.get<ICategoria[]>('categorias', {
-      params: {
-        slug
-      }
+        params: {
+            slug
+        }
     })
     return resposta.data[0]
-  }
+}
+
+export const obterLivrosDestaque = async (tipo: string) => {
+    const resposta = await http.get<ILivro[]>(`public/${tipo}`)
+    return resposta.data
+}
+
+export const obterProdutosDaCategoria = async (categoria: ICategoria) => {
+    const resposta = await http.get<ILivro[]>('livros', {
+        params: {
+            categoria: categoria.id
+        }
+    })
+    return resposta.data
+}

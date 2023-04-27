@@ -1,62 +1,19 @@
-import { useState } from 'react';
-import './Home.css';
-import Banner from "../../componentes/Banner"
 import { AbCampoTexto } from 'alura-books-ds-guimarans';
-import LivrosDestaque from 'componentes/LivrosDestaque';
-import Newsletter from 'componentes/Newsletter';
-import Titulo from 'componentes/Titulo';
-import TagsCategorias from 'componentes/TagsCategoria';
+import { useState } from "react"
+import Banner from "../../componentes/Banner"
+import LivrosDestaque from "../../componentes/LivrosDestaque"
+import Newsletter from "../../componentes/Newsletter"
+import Titulo from "../../componentes/Titulo"
+import { useQuery } from "@tanstack/react-query"
 
+import './Home.css'
+import { obterLivrosDestaque } from "../../http"
+import TagsCategorias from 'componentes/TagsCategoria';
 const Home = () => {
     const [busca, setBusca] = useState('');
 
-    const lancamentos = [
-        {
-            autor: 'Tárcio Zemel',
-            descricao: 'Técnicas e ferramentas que fazem a diferença nos seus estilos',
-            imagem: '/imagens/livros/css.jpg',
-            nome: 'CSS Eficiente',
-            preco: 29.9
-        },
-        {
-            autor: 'Sass',
-            descricao: 'Aprendendo pré-processadores CSS',
-            imagem: '/imagens/livros/sass.jpg',
-            nome: 'Natan Souza',
-            preco: 29.9
-        },
-        {
-            autor: 'Diego Eis',
-            descricao: 'O caminho das pedras para ser um dev Front-End',
-            imagem: '/imagens/livros/frontend.jpg',
-            nome: 'Guia Front-End',
-            preco: 29.9
-        },
-    ]
-    const maisVendidos = [
-        {
-            autor: 'Thiago da Silva Adriano',
-            descricao: 'Melhore suas aplicações JavaScript',
-            imagem: '/imagens/livros/typescript.jpg',
-            nome: 'Guia prático de TypeScript',
-            preco: 29.9
-        },
-        {
-            autor: 'Akira Hanashiro',
-            descricao: 'A revolucionária linguagem de consulta e manipulação de dados para APIs',
-            imagem: '/imagens/livros/graphql.jpg',
-            nome: 'GraphQL',
-            preco: 29.9
-        },
-        {
-            autor: 'Vinícius Carvalho',
-            descricao: 'PostgreSQL',
-            imagem: '/imagens/livros/postgre.jpg',
-            nome: 'PostgreSQL',
-            preco: 29.9
-        },
-    ]
-
+    const { data: lancamentos } = useQuery(['destaques'], () => obterLivrosDestaque('lancamentos'))
+    const { data: maisVendidos } = useQuery(['maisVendidos'], () => obterLivrosDestaque('mais-vendidos'))
     return(
         <section className='home'>
             <Banner
@@ -72,9 +29,9 @@ const Home = () => {
             </form>
             </Banner>
             <Titulo texto="ÚLTIMOS LANÇAMENTOS"/>
-            <LivrosDestaque livros={lancamentos}/>
+            <LivrosDestaque livros={lancamentos ?? []}/>
             <Titulo texto="MAIS VENDIDOS"/>
-            <LivrosDestaque livros={maisVendidos}/>
+            <LivrosDestaque livros={maisVendidos ?? []}/>
             <TagsCategorias />
             <Newsletter />
         </section>
