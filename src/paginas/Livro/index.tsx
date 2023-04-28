@@ -5,13 +5,18 @@ import TituloPrincipal from '../../componentes/TituloPrincipal';
 import { useLivro } from '../../graphql/livros/hooks';
 import { formatador } from '../../utils/formatador-moeda';
 import './Livro.css'
+import Loader from 'componentes/Loader';
 
 const Livro = () => {
     const params = useParams()
     
     const [opcao, setOpcao] = useState<AbGrupoOpcao>()
 
-    const { data } = useLivro(params.slug || '')
+    const { data, loading } = useLivro(params.slug || '')
+
+    if (loading) {
+        return <Loader />
+    }
 
     const opcoes: AbGrupoOpcao[] = data?.livro.opcoesCompra ? data?.livro.opcoesCompra.map(opcao => ({
         id: opcao.id,
