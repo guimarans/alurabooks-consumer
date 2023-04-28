@@ -1,0 +1,55 @@
+
+.carrinho-item {
+    display: grid;
+    grid-template-areas: "imagem info preco quantidade remover";
+    grid-template-columns: 120px 1fr 120px 170px 105px;
+    gap: 20px;
+    align-items: start;
+}
+.carrinho-imagem {
+    grid-area: imagem;
+}
+.carrinho-imagem img {
+    width: 100%;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.15);
+}
+.carrinho-infos {
+    grid-area: info;
+
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.carrinho-infos h3 {
+    color: #002F52;
+    margin: 0;
+}
+
+.carrinho-infos p {
+    flex-grow: 1;
+}
+
+.carrinho-preco {
+    grid-area: preco;
+}
+
+.carrinho-qtd {
+    grid-area: quantidade;
+}
+
+.carrinho-qtd label {
+    color: #000000;
+}
+
+.carrinho-remover {
+    grid-area: remover;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.carrinho-remover picture {
+    margin: 8px 0;
+}
