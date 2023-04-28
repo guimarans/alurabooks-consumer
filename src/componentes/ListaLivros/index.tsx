@@ -1,8 +1,8 @@
 import CardLivro from "componentes/CardLivro"
 import { ICategoria } from "interfaces/ICategoria"
 import './ListaLivros.css'
-import { AbBotao, AbCampoTexto } from "alura-books-ds-guimarans"
-import { useState } from "react"
+import { AbCampoTexto } from "alura-books-ds-guimarans"
+import { useEffect, useState } from "react"
 import { useLivros } from "graphql/livros/hooks"
 import { useReactiveVar } from "@apollo/client"
 import { filtroLivrosVar, livrosVar } from "graphql/livros/state"
@@ -15,7 +15,15 @@ const ListaLivros = ({ categoria }: ListaLivrosProps) => {
 
     const [textoBusca, setTextoBusca] = useState('')
 
+    useEffect(() => {
+        filtroLivrosVar({
+            ...filtroLivrosVar(),
+            titulo: textoBusca.length >= 3 ? textoBusca : ''
+        })
+    },[textoBusca])
+
     filtroLivrosVar({
+        ...filtroLivrosVar(),
         categoria,
     })
 
@@ -27,9 +35,6 @@ const ListaLivros = ({ categoria }: ListaLivrosProps) => {
         <section>
             <form style={{ maxWidth: '60%', margin: '0 auto', textAlign: 'center'}}>
                 <AbCampoTexto value={textoBusca} onChange={setTextoBusca} placeholder="Digite o titulo" />
-                <div>
-                    <AbBotao tamanho="pequeno" texto="Buscar" />
-                </div>
             </form>
             <div className="ListaLivros">
                 {livros.map(livro => <CardLivro livro={livro} key={livro.id} />)}
