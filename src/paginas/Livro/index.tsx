@@ -6,16 +6,24 @@ import { useLivro } from '../../graphql/livros/hooks';
 import { formatador } from '../../utils/formatador-moeda';
 import './Livro.css'
 import Loader from 'componentes/Loader';
+import { error } from 'console';
+import BlocoSobre from 'componentes/BlocoSobre';
 
 const Livro = () => {
     const params = useParams()
     
     const [opcao, setOpcao] = useState<AbGrupoOpcao>()
 
-    const { data, loading } = useLivro(params.slug || '')
+    const { data, loading, error } = useLivro(params.slug || '')
 
     if (loading) {
         return <Loader />
+    }
+
+    if (error) {
+        console.log('Alguma coisa deu errada')
+        console.error(error)
+        return <h1>Ops! Algum erro inesperado aconteceu</h1>
     }
 
     const opcoes: AbGrupoOpcao[] = data?.livro.opcoesCompra ? data?.livro.opcoesCompra.map(opcao => ({
@@ -38,6 +46,7 @@ const Livro = () => {
                     <div className='detalhes'>
                         <h2>{data?.livro.titulo}</h2>
                         <p>{data?.livro.descricao}</p>
+                        <p> Por: {data?.livro.autor.nome}</p>
 
                         <h3>Selecione o formato do seu livro </h3>
                         <div className='opcoes'>
@@ -56,10 +65,10 @@ const Livro = () => {
                         </footer>
                     </div>
                 </div>
-                {/* <div>
-                    <SobreAutor autorId={data?.livro.autor} />
-                    <BlocoSobre titulo="Sobre o data?.Livro" corpo={data?.livro.sobre} />
-                </div> */}
+                <div>
+                    <BlocoSobre titulo="Sobre o Autor" corpo={data?.livro.autor.sobre} />
+                    <BlocoSobre titulo="Sobre o Livro" corpo={data?.livro.sobre} />
+                </div>
             </div>
         </section>
     )
