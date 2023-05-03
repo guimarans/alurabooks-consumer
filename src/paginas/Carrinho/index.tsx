@@ -1,16 +1,15 @@
 import { AbBotao } from "alura-books-ds-guimarans";
 import TituloPrincipal from "componentes/TituloPrincipal"
-import { useCarrinho } from "graphql/carrinho/hooks"
 import { formatador } from "utils/formatador-moeda";
 import ItemCarrinho from "componentes/ItemCarrinho";
-
-import './Carrinho.css'
 import { IItemCarrinho } from "interfaces/IItemCarrinho";
 import { Key } from "react";
 import { Link } from "react-router-dom";
+import './Carrinho.css'
+import { useCarrinhoContext } from "contextApi/carrinho";
 
 const Carrinho = () => {
-    const { data } = useCarrinho()
+    const { carrinho } = useCarrinhoContext()
 
     return (
         <section className="carrinho">
@@ -18,14 +17,14 @@ const Carrinho = () => {
             <div className="container">
                 <h2>Itens selecionados</h2>
                 <div className="carrinho-itens">
-                    {data?.carrinho?.itens.map((item: IItemCarrinho, index: Key | null | undefined) => 
+                    {carrinho?.itens.map((item: IItemCarrinho, index: Key | null | undefined) => 
                         <ItemCarrinho key={index} item={item} />
                     )}
                     
                     <Link to='/'>Continuar comprando</Link>
                 </div>
                 <footer>
-                    <p>Total da compra <strong>{formatador.format(data?.carrinho?.total)}</strong></p>
+                    <p>Total da compra <strong>{formatador.format(carrinho?.total || 0)}</strong></p>
                     <AbBotao texto="Finalizar compra" />
                 </footer>
             </div>
